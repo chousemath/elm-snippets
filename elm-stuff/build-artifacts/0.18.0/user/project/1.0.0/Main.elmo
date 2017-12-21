@@ -1,0 +1,21 @@
+var _user$project$Main$isDivisible = function (n) {
+	return _elm_lang$core$Native_Utils.eq(
+		A2(_elm_lang$core$Basics_ops['%'], n, 3),
+		0) || _elm_lang$core$Native_Utils.eq(
+		A2(_elm_lang$core$Basics_ops['%'], n, 5),
+		0);
+};
+var _user$project$Main$x = A2(
+	_elm_lang$core$Debug$log,
+	'x: ',
+	A3(
+		_elm_lang$core$Array$foldl,
+		F2(
+			function (x, y) {
+				return x + y;
+			}),
+		0,
+		A2(
+			_elm_lang$core$Array$filter,
+			_user$project$Main$isDivisible,
+			A2(_elm_lang$core$Array$initialize, 1000, _elm_lang$core$Basics$identity))));
