@@ -1,29 +1,53 @@
-var _user$project$Main$sumIfEven = F2(
-	function (original, target) {
+var _user$project$Main$dividesEvenly = F2(
+	function (n, t) {
 		return _elm_lang$core$Native_Utils.eq(
-			A2(_elm_lang$core$Basics_ops['%'], target, 2),
-			0) ? (original + target) : original;
+			A2(_elm_lang$core$Basics_ops['%'], n, t),
+			0);
 	});
-var _user$project$Main$fib = F4(
-	function (prev, curr, sum, limit) {
-		fib:
+var _user$project$Main$isPrime = function (n) {
+	return _elm_lang$core$Native_Utils.eq(
+		_elm_lang$core$List$length(
+			A2(
+				_elm_lang$core$List$filter,
+				_user$project$Main$dividesEvenly(n),
+				A2(
+					_elm_lang$core$List$range,
+					2,
+					_elm_lang$core$Basics$floor(
+						_elm_lang$core$Basics$sqrt(
+							_elm_lang$core$Basics$toFloat(n)))))),
+		0);
+};
+var _user$project$Main$isPrimeDivisor = F2(
+	function (n, t) {
+		return _elm_lang$core$Native_Utils.eq(
+			A2(_elm_lang$core$Basics_ops['%'], n, t),
+			0) && _user$project$Main$isPrime(t);
+	});
+var _user$project$Main$searchPrime = F2(
+	function (n, t) {
+		searchPrime:
 		while (true) {
-			if (_elm_lang$core$Native_Utils.cmp(prev + curr, limit) > 0) {
-				return A2(_user$project$Main$sumIfEven, sum, curr);
+			if (_elm_lang$core$Native_Utils.eq(
+				A2(_elm_lang$core$Basics_ops['%'], n, t),
+				0) && _user$project$Main$isPrime(t)) {
+				var _v0 = (n / A2(_elm_lang$core$Debug$log, 'Found: ', t)) | 0,
+					_v1 = t + 1;
+				n = _v0;
+				t = _v1;
+				continue searchPrime;
 			} else {
-				var _v0 = curr,
-					_v1 = prev + curr,
-					_v2 = A2(_user$project$Main$sumIfEven, sum, curr),
-					_v3 = limit;
-				prev = _v0;
-				curr = _v1;
-				sum = _v2;
-				limit = _v3;
-				continue fib;
+				if (_elm_lang$core$Native_Utils.eq(
+					A2(_elm_lang$core$Basics_ops['%'], n, t),
+					0)) {
+					var _v2 = (n / t) | 0,
+						_v3 = t + 1;
+					n = _v2;
+					t = _v3;
+					continue searchPrime;
+				} else {
+					return A2(_user$project$Main$searchPrime, n, t) + 1;
+				}
 			}
 		}
 	});
-var _user$project$Main$x = A2(
-	_elm_lang$core$Debug$log,
-	'Fib: ',
-	A4(_user$project$Main$fib, 1, 2, 0, 4000000));
